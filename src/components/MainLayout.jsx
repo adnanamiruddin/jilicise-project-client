@@ -62,7 +62,7 @@ export default function MainLayout({ children }) {
       <Navbar isCarouselPassed={isCarouselPassed} />
 
       <div
-        className={`bg-sky-50 text-black p-6 pt-20 min-h-screen ${
+        className={`bg-sky-50 text-black p-6 pt-[4.5rem] min-h-screen ${
           router.pathname.includes("/dashboard") ? "pb-28" : ""
         }`}
       >

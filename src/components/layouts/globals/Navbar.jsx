@@ -59,7 +59,7 @@ export default function Navbar({ isCarouselPassed }) {
       <div className="md:hidden navbar fixed z-[999] transition-all ease-in duration-300 bg-gradient-to-br from-sky-400 to-sky-600 py-3">
         <Link
           href="/"
-          className="text-3xl text-white font-bold ms-3 italic font-serif"
+          className="font-serif text-3xl text-white font-bold ms-3 italic"
         >
           Jilicise
         </Link>
@@ -133,7 +133,100 @@ export default function Navbar({ isCarouselPassed }) {
       {/* Mobile View END */}
 
       {/* Tab - Desktop View START */}
-      <div
+      <div className="hidden md:navbar fixed z-[999] transition-all ease-in-out duration-300 bg-gradient-to-br from-sky-600 to-sky-500">
+        <div className="navbar-start">
+          <h1 className="font-serif text-3xl text-white font-bold ms-4 mb-0.5 italic">
+            Jilicise
+          </h1>
+
+          <ul className="ms-4 menu menu-horizontal gap-2 text-base font-semibold">
+            {generalLinks.map((link) => (
+              <li
+                key={link.href}
+                className={`rounded-md border-2 border-transparent hover:bg-sky-600 hover:border-sky-400 focus:bg-sky-400 ${
+                  router.pathname === link.href
+                    ? "bg-sky-500 border-sky-300 shadow-2xl"
+                    : ""
+                }`}
+              >
+                <Link href={link.href} className="text-white focus:text-white">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="navbar-end me-2">
+          {!user ? (
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn font-bold text-lg shadow-lg border-2 px-4 text-white bg-sky-600 border-sky-400 hover:bg-sky-500 hover:border-sky-200 focus:bg-sky-700 focus:border-b-0 focus:rounded-b-none"
+              >
+                Login
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-gradient-to-bl from-sky-700 to-sky-500 border-sky-300 border-2 border-t-0 border-r-0 rounded-tr-none"
+              >
+                {notLoggedInLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-white font-semibold hover:bg-sky-300"
+                    >
+                      {link.icon}
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn font-bold text-lg shadow-lg border-2 px-4 text-white bg-sky-600 border-sky-400 hover:bg-sky-500 hover:border-sky-200 focus:bg-sky-700 focus:border-b-0 focus:rounded-b-none"
+              >
+                <MdAccountCircle className="text-2xl" />
+                {user.firstName}
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-gradient-to-bl from-sky-700 to-sky-500 border-sky-300 border-2 border-t-0 border-r-0 rounded-tr-none"
+              >
+                <>
+                  {loggedInLinks.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="text-white font-semibold hover:bg-sky-300"
+                      >
+                        {link.icon}
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </>
+
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className="text-white font-semibold mt-2 bg-red-600 hover:bg-red-500 focus:bg-red-700"
+                  >
+                    <FiLogOut className="text-2xl me-1" />
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+      {/* <div
         className={`hidden md:navbar fixed z-[999] transition-all ease-in-out duration-300 ${
           isCarouselPassed || router.asPath !== "/"
             ? "bg-gradient-to-br from-sky-400 to-sky-700"
@@ -243,7 +336,7 @@ export default function Navbar({ isCarouselPassed }) {
             </div>
           )}
         </div>
-      </div>
+      </div> */}
       {/* Tab - Desktop View END */}
     </>
   );
